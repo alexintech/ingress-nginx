@@ -38,6 +38,9 @@ jobs:
         if: ${{ startsWith(github.ref, 'refs/tags/controller-') }}
         run: echo "GORELEASER_CURRENT_TAG=${{ github.ref }}" | sed 's/refs\/tags\/controller-//' >> $GITHUB_ENV
 
+      - name: Create local SemVer tag
+        run: git tag "${{ env.GORELEASER_CURRENT_TAG }}"
+
       - name: Run GoReleaser
         if: ${{ startsWith(github.ref, 'refs/tags/controller-') }}
         uses: goreleaser/goreleaser-action@9c156ee8a17a598857849441385a2041ef570552 # v6.3.0
